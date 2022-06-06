@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+  <div>
+    <table>
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>제목</th>
+        <th>내용</th>
+        <th>링크</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="post : ${posts}">
+        <td th:text="${post.postId}"></td>
+        <td th:text="${post.title}"></td>
+        <td th:text="${post.desc}"></td>
+        <td><a th:href="@{/post(postId = ${post.postId})}">링크</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div> <!-- /container -->
+</body>
+</html>
