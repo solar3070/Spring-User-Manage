@@ -11,7 +11,6 @@ import java.util.List;
 
 @Controller
 public class PostController {
-    // 리스트o, 디테일o, 삭제, 수정, 등록o
 
     private final PostService postService;
 
@@ -30,9 +29,7 @@ public class PostController {
         Post post = new Post();
         post.setTitle(form.getTitle());
         post.setDesc(form.getDesc());
-
         postService.save(post);
-
         return "redirect:/";
     }
 
@@ -50,10 +47,22 @@ public class PostController {
         return "post/postDetail";
     }
 
+    @GetMapping("/post/edit")
+    public String edit(@RequestParam("postId") int postId, Model model) {
+        Post post = postService.findPost(postId).get();
+        model.addAttribute("post", post);
+        return "post/postUpdate";
+    }
+
+    @PutMapping("/post/edit")
+    public String update(Post post) {
+        postService.save(post);
+        return "redirect:/";
+    }
+
     @DeleteMapping("/post")
     public String delete(@RequestParam("postId") int postId) {
         postService.deletePost(postId);
-
         return "redirect:/";
     }
 }
